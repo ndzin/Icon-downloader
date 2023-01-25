@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 import requests
+import json
+from collections import namedtuple
 
 mainUrl = 'https://api.ambr.top/assets/UI/'
 
@@ -19,17 +21,33 @@ if char_check == 'Yanfei':
     char = 'Feiyan'
 elif char_check == 'Jean':
     char = 'Qin'
+elif char_check == 'Alhaitham':
+    char = 'Alhatham'
+elif char_check == 'Shogun':
+    char = 'Shougun'
+elif char_check == 'Raiden':
+    char = 'Shougun'
+elif char_check == 'Raiden shogun':
+    char = 'Shougun'
 else:
     char = char_check
 
 valid = mainUrl+'UI_Gacha_AvatarImg_'+char+'.png'
 
+
+g = open('weapon.json')
+f = json.load(g)
+   
 response = requests.get(valid)
 try:
     if response.status_code == 200:  
         createFolder('./data/'+char+'/Abilities')
         createFolder('./data/'+char+'/Passives')
         createFolder('./data/'+char+'/Constellation')
+
+        
+
+        a_a = mainUrl+(f[char])+'.png'
         e_a = mainUrl+'Skill_E_'+char+'_01.png'
         e_x = mainUrl+'Skill_S_'+char+'_01.png'
 
@@ -60,11 +78,13 @@ try:
 
         response = requests.get(isntbeta)
         if response.status_code == 200:
+            gacha = 'https://enka.network/ui/UI_Gacha_AvatarIcon_'+char+'.png'
             card = 'https://enka.network/ui/UI_AvatarIcon_'+char+'_Card.png'
             side = 'https://enka.network/ui/UI_AvatarIcon_Side_'+char+'.png'
         else:
             card = 'https://raw.githubusercontent.com/ndzin/ndzin.github.io/main/gi-library/UI/UI_AvatarIcon_'+char+'_Card.png'
             side = 'https://raw.githubusercontent.com/ndzin/ndzin.github.io/main/gi-library/UI/UI_AvatarIcon_Side_'+char+'.png'
+            gacha = 'https://raw.githubusercontent.com/ndzin/ndzin.github.io/main/gi-library/UI/UI_Gacha_AvatarIcon_'+char+'.png'
             
 
         req = requests.get(side)
@@ -79,6 +99,16 @@ try:
 
         req = requests.get(card)
         filename = req.url[card.rfind('/')+1:]
+        print('Downloaded '+filename)
+
+        with open('./data/'+char+'/'+filename, 'wb') as f:
+            
+            for chunk in req.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+
+        req = requests.get(gacha)
+        filename = req.url[gacha.rfind('/')+1:]
         print('Downloaded '+filename)
 
         with open('./data/'+char+'/'+filename, 'wb') as f:
@@ -117,9 +147,20 @@ try:
                 if chunk:
                     f.write(chunk)
 
+        req = requests.get(a_a)
+        filename = req.url[a_a.rfind('/')+1:]
+        print('\nDownloaded '+filename)
+
+        with open('./data/'+char+'/Abilities/'+filename, 'wb') as f:
+            
+            for chunk in req.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+
+        
         req = requests.get(e_a)
         filename = req.url[e_a.rfind('/')+1:]
-        print('\nDownloaded '+filename)
+        print('Downloaded '+filename)
 
         with open('./data/'+char+'/Abilities/'+filename, 'wb') as f:
             
@@ -229,3 +270,5 @@ try:
                     f.write(chunk)
 except:
     exit
+
+print('Done!')
