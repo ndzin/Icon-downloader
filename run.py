@@ -22,7 +22,7 @@ elif char_check == 'Jean':
 else:
     char = char_check
 
-valid = mainUrl+'Skill_E_'+char+'_01.png'
+valid = mainUrl+'UI_Gacha_AvatarImg_'+char+'.png'
 
 response = requests.get(valid)
 try:

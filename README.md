@@ -11,3 +11,7 @@ Usage:
 # Disclaimer
 
 As I use this only as a Dumper for my Designs, its very likely that the code will remain very poor 🤡.
+
+# TODO
+
+- Fix Ayaka
