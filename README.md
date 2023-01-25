@@ -8,6 +8,6 @@ Usage:
 2. Type the character name;
 3. Profit.
 ```
-# Icon-downloader
+# Disclaimer
 
 As I use this only as a Dumper for my Designs, its very likely that the code will remain very poor 🤡.
