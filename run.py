@@ -1,7 +1,4 @@
-from io import BytesIO
-import os, sys, json, re
-import subprocess
-import urllib.request
+import os
 from pathlib import Path
 import requests
 
@@ -16,7 +13,14 @@ def createFolder(directory):
 
 char_name = input('Type the Character Name:\n')
 
-char = char_name.capitalize()
+char_check = char_name.capitalize()
+
+if char_check == 'Yanfei':
+    char = 'Feiyan'
+elif char_check == 'Jean':
+    char = 'Qin'
+else:
+    char = char_check
 
 valid = mainUrl+'Skill_E_'+char+'_01.png'
 
@@ -36,23 +40,32 @@ try:
         c1 = mainUrl+'UI_Talent_S_'+char+'_01.png'
         c2 = mainUrl+'UI_Talent_S_'+char+'_02.png'
         c3 = mainUrl+'Skill_E_'+char+'_01.png'
-        c4 = mainUrl+'UI_Talent_S_'+char+'_04.png'
-        c5 = mainUrl+'UI_Talent_S_'+char+'_05.png'
-        c6 = mainUrl+'Skill_S_'+char+'_01.png'
+        c4 = mainUrl+'UI_Talent_S_'+char+'_03.png'
+        c5 = mainUrl+'Skill_S_'+char+'_01.png'
+        c6 = mainUrl+'UI_Talent_S_'+char+'_04.png'
+
+
+        if char == 'Qin':
+            e_a = mainUrl+'Skill_S_'+char+'_02.png'
+            e_x = mainUrl+'UI_Talent_U_'+char+'_02.png'
+            c3 = mainUrl+'Skill_S_'+char+'_02.png'
+            c5 = mainUrl+'UI_Talent_U_'+char+'_02.png'
+
 
         ai = mainUrl+'UI_AvatarIcon_'+char+'.png'
         namecard = mainUrl+'/namecard/UI_NameCardPic_'+char+'_P.png'
         splash = mainUrl+'UI_Gacha_AvatarImg_'+char+'.png'
 
-        if char == 'Mika':
-            card = 'https://raw.githubusercontent.com/ndzin/ndzin.github.io/main/gi-library/UI/UI_AvatarIcon_'+char+'_Card.png'
-            side = 'https://raw.githubusercontent.com/ndzin/ndzin.github.io/main/gi-library/UI/UI_AvatarIcon_Side_'+char+'.png'
-        elif char == 'Dehya':
-            card = 'https://raw.githubusercontent.com/ndzin/ndzin.github.io/main/gi-library/UI/UI_AvatarIcon_'+char+'_Card.png'
-            side = 'https://raw.githubusercontent.com/ndzin/ndzin.github.io/main/gi-library/UI/UI_AvatarIcon_Side_'+char+'.png'
-        else:
+        isntbeta = 'https://enka.network/ui/UI_AvatarIcon_'+char+'_Card.png'
+
+        response = requests.get(isntbeta)
+        if response.status_code == 200:
             card = 'https://enka.network/ui/UI_AvatarIcon_'+char+'_Card.png'
             side = 'https://enka.network/ui/UI_AvatarIcon_Side_'+char+'.png'
+        else:
+            card = 'https://raw.githubusercontent.com/ndzin/ndzin.github.io/main/gi-library/UI/UI_AvatarIcon_'+char+'_Card.png'
+            side = 'https://raw.githubusercontent.com/ndzin/ndzin.github.io/main/gi-library/UI/UI_AvatarIcon_Side_'+char+'.png'
+            
 
         req = requests.get(side)
         filename = req.url[side.rfind('/')+1:]
