@@ -16,5 +16,3 @@ As I use this only as a Dumper for my Designs, its very likely that the code wil
 
 - Fix Ayaka
 - Fix Diluc
-- Fix Alhaitham
-- Fix Raiden Shogun
