@@ -37,6 +37,8 @@ else:
 
 valid = mainUrl+'UI_Gacha_AvatarImg_'+char+'.png'
 
+passive = mainUrl+'UI_Talent_S_'+char+'_07.png'
+
 
 g = open('weapon.json')
 f = json.load(g)
@@ -45,6 +47,7 @@ p = open('passives.json')
 q = json.load(p)
    
 response = requests.get(valid)
+pa_check = requests.get(passive)
 try:
     if response.status_code == 200:  
         createFolder('./data/'+char+'/Abilities')
@@ -59,7 +62,10 @@ try:
 
         p1 = mainUrl+'UI_Talent_S_'+char+'_05.png'
         p2 = mainUrl+'UI_Talent_S_'+char+'_06.png'
-        p3 = mainUrl+'UI_Talent_S_'+char+'_07.png'
+        if pa_check.status_code == 200: 
+            p3 = mainUrl+'UI_Talent_S_'+char+'_07.png'
+        else:
+            p3 = mainUrl+(q[char])+'.png'
 
         c1 = mainUrl+'UI_Talent_S_'+char+'_01.png'
         c2 = mainUrl+'UI_Talent_S_'+char+'_02.png'
@@ -68,9 +74,8 @@ try:
         c5 = mainUrl+'Skill_S_'+char+'_01.png'
         c6 = mainUrl+'UI_Talent_S_'+char+'_04.png'
 
-        if (q[char]):
-            p3 = mainUrl+(q[char])+'.png'
-
+        
+   
         if char == 'Qin':
             e_a = mainUrl+'Skill_S_'+char+'_02.png'
             e_x = mainUrl+'UI_Talent_U_'+char+'_02.png'
