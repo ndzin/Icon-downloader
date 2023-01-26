@@ -4,7 +4,7 @@ Very simple and poorly written tool that Downloads all Icons from a specific cha
 
 Usage:
 ```
-1. Execute the python script;
+1. Open the executable file;
 2. Type the character name;
 3. Profit.
 ```
