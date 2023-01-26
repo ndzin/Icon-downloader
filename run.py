@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 import requests
 import json
-from collections import namedtuple
 
 mainUrl = 'https://api.ambr.top/assets/UI/'
 
@@ -29,6 +28,10 @@ elif char_check == 'Raiden':
     char = 'Shougun'
 elif char_check == 'Raiden shogun':
     char = 'Shougun'
+elif char_check == 'Kamisato ayaka':
+    char = 'Ayaka'
+elif char_check == 'Kamisato ayato':
+    char = 'Ayato'
 else:
     char = char_check
 
@@ -37,6 +40,9 @@ valid = mainUrl+'UI_Gacha_AvatarImg_'+char+'.png'
 
 g = open('weapon.json')
 f = json.load(g)
+
+p = open('passives.json')
+q = json.load(p)
    
 response = requests.get(valid)
 try:
@@ -62,6 +68,8 @@ try:
         c5 = mainUrl+'Skill_S_'+char+'_01.png'
         c6 = mainUrl+'UI_Talent_S_'+char+'_04.png'
 
+        if (q[char]):
+            p3 = mainUrl+(q[char])+'.png'
 
         if char == 'Qin':
             e_a = mainUrl+'Skill_S_'+char+'_02.png'
